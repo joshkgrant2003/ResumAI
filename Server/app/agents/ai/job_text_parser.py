@@ -1,14 +1,10 @@
-import os
-from dotenv import load_dotenv
+from app.config import OPENAI_API_KEY
 from app.errors import JobBlockedException, JobParsingException
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-load_dotenv()
-KEY = os.getenv("OPENAI_API_KEY")
-
-if not KEY:
+if not OPENAI_API_KEY:
     raise Exception("Configuration error: could not find environment variable for 'OPENAI_API_KEY'")
 
 prompt_template = PromptTemplate(

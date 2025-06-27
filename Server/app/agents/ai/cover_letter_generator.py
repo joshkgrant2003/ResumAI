@@ -1,13 +1,9 @@
-import os
-from dotenv import load_dotenv
+from app.config import OPENAI_API_KEY
 from langchain_core.runnables import RunnableLambda
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 
-load_dotenv()
-KEY = os.getenv("OPENAI_API_KEY")
-
-if not KEY:
+if not OPENAI_API_KEY:
     raise Exception("Configuration error: could not find environment variable for 'OPENAI_API_KEY'")
 
 prompt = ChatPromptTemplate.from_template(
@@ -25,7 +21,7 @@ prompt = ChatPromptTemplate.from_template(
     """
 )
 
-llm = ChatOpenAI(api_key=KEY, temperature=0.7)
+llm = ChatOpenAI(api_key=OPENAI_API_KEY, temperature=0.7)
 
 generate_cover_letter_chain = (
     prompt | llm | RunnableLambda(lambda x: x.content)
