@@ -1,6 +1,6 @@
 # ResumAI
 
-ResumAI is a full-stack AI-powered web app that helps job seekers tailor their resumes, generate personalized cover letters, and prepare for interviews — all based on real job listings.
+[ResumAI](resum-ai-seven.vercel.app) is a full-stack AI-powered web app that helps job seekers tailor their resumes, generate personalized cover letters, and prepare for interviews — all based on real job listings.
 
 ## ✨ Features
 
@@ -20,6 +20,9 @@ ResumAI/
 ```
 
 ## 🚀 Getting Started
+
+To get started, just visit [this link](resum-ai-seven.vercel.app). If you'd like to run the project locally, follow the instructions below.
+- **NOTE**: the initial visit of the deployed app may take a while (e.g. > 50 seconds) to boot up. This is due to the free tier of the backend hosting service used (Render)
 
 ### 🔧 Backend (FastAPI)
 
@@ -80,4 +83,4 @@ Paste a job URL to get 10 AI-generated interview questions tailored to that spec
 - **AI Integration**: OpenAI (GPT models)
 - **PDF Parsing**: PyMuPDF (fitz)
 - **Database**: PostgreSQL (via Neon)
-- **Hosting**: Vercel (frontend), TBD or local (backend)
+- **Hosting**: Vercel (frontend), Render (backend)
