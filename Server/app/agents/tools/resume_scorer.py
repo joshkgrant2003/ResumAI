@@ -1,8 +1,10 @@
+import os
 import re
 from collections import Counter
 import string
 import nltk
 from nltk.corpus import stopwords
+from app.config import LOG_DIR
 
 nltk.download('stopwords')
 
@@ -26,7 +28,9 @@ def keyword_match_score(resume_text, job_description, top_k=20):
 
     score = (len(matched_keywords) / len(job_keywords)) * 100
 
-    with open("app/logs/resume_scorer_logs.log", "w", encoding="utf-8") as f:
+    log_file = os.path.join(LOG_DIR, "resume_scorer_logs.log")
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(log_file, "w", encoding="utf-8") as f:
         f.write(f"Matched Keywords: {set(matched_keywords)}\n")
         f.write(f"Job Keywords: {job_keywords}\n")
         f.write(f"Score: {score:.2f}\n")

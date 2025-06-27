@@ -1,4 +1,5 @@
-from app.config import OPENAI_API_KEY
+import os
+from app.config import OPENAI_API_KEY, LOG_DIR
 from app.errors import JobBlockedException, JobParsingException
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
@@ -78,5 +79,7 @@ async def parse_job_description(url_raw_text: str) -> str:
         raise JobParsingException(str(e))
     
     finally:
-        with open("app/logs/job_parser_logs.log", "w", encoding="utf-8") as f:
+        log_file = os.path.join(LOG_DIR, "job_parser_logs.log")
+        os.makedirs(LOG_DIR, exist_ok=True)
+        with open(log_file, "w", encoding="utf-8") as f:
             f.write(parsed_output)

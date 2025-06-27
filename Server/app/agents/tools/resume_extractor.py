@@ -1,4 +1,6 @@
+import os
 import fitz
+from app.config import LOG_DIR
 
 def extract_resume_pdf(pdf_path: str) -> str:
     print(f"Extracting text from {pdf_path}...")
@@ -16,7 +18,9 @@ def extract_resume_pdf(pdf_path: str) -> str:
     if not text.strip():
         raise Exception("No extractable text found in PDF.")
 
-    with open("app/logs/resume_contents_logs.log", "w", encoding="utf-8") as f:
+    log_file = os.path.join(LOG_DIR, "resume_contents_logs.log")
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(log_file, "w", encoding="utf-8") as f:
         f.write(text)
 
     print("STATUS: resume extracted successfully")

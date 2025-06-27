@@ -1,6 +1,9 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 
+# init log directory variable used for logging
+LOG_DIR = "app/logs"
+
 # load .env only if running locally
 if os.getenv("RENDER") != "true":
     env_path = find_dotenv()

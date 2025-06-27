@@ -1,4 +1,5 @@
-from app.config import OPENAI_API_KEY
+import os
+from app.config import OPENAI_API_KEY, LOG_DIR
 from langchain_core.runnables import RunnableLambda
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -35,7 +36,9 @@ async def generate_interview_questions(job_description: str) -> str:
             "job_description": job_description,
         })
 
-        with open("app/logs/interview_question_logs.log", "w", encoding="utf-8") as f:
+        log_file = os.path.join(LOG_DIR, "interview_question_logs.log")
+        os.makedirs(LOG_DIR, exist_ok=True)
+        with open(log_file, "w", encoding="utf-8") as f:
             f.write(interview_questions)
 
         print("STATUS: interview questions generated successfully")

@@ -1,4 +1,5 @@
-from app.config import OPENAI_API_KEY
+import os
+from app.config import OPENAI_API_KEY, LOG_DIR
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -49,7 +50,9 @@ async def optimize_resume(resume_text: str, job_description: str) -> str:
             "job_description": job_description,
         })
 
-        with open("app/logs/optimized_resume_logs.log", "w", encoding="utf-8") as f:
+        log_file = os.path.join(LOG_DIR, "optimized_resume_logs.log")
+        os.makedirs(LOG_DIR, exist_ok=True)
+        with open(log_file, "w", encoding="utf-8") as f:
             f.write(optimized_resume)
 
         print("STATUS: resume optimized successfully")

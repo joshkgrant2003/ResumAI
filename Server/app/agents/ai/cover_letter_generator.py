@@ -1,4 +1,5 @@
-from app.config import OPENAI_API_KEY
+import os
+from app.config import OPENAI_API_KEY, LOG_DIR
 from langchain_core.runnables import RunnableLambda
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -41,7 +42,9 @@ async def generate_cover_letter(resume_text: str, job_description: str) -> str:
             "job_description": job_description,
         })
 
-        with open("app/logs/cover_letter_logs.log", "w", encoding="utf-8") as f:
+        log_file = os.path.join(LOG_DIR, "cover_letter_logs.log")
+        os.makedirs(LOG_DIR, exist_ok=True)
+        with open(log_file, "w", encoding="utf-8") as f:
             f.write(cover_letter)
 
         print("STATUS: cover letter generated successfully")

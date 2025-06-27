@@ -1,5 +1,7 @@
+import os
 import httpx
 from bs4 import BeautifulSoup, Comment
+from app.config import LOG_DIR
 from app.errors import JobScrapingException, JobBlockedException
 
 HEADERS = {
@@ -47,7 +49,9 @@ async def scrape_url(url: str) -> str:
     if not full_text.strip():
         raise Exception("Extracted text is empty or not readable")
 
-    with open("app/logs/raw_text_logs.log", "w", encoding="utf-8") as f:
+    log_file = os.path.join(LOG_DIR, "raw_text_logs.log")
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(log_file, "w", encoding="utf-8") as f:
         f.write(full_text)
 
     print("STATUS: URL scraped successfully")
